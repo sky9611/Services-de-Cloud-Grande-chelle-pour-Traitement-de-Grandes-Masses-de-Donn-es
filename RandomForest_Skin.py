@@ -11,15 +11,7 @@ from pyspark.ml.feature import StringIndexer, Bucketizer,OneHotEncoder,VectorAss
 sc = SparkContext(appName="PythonRandomForestClassificationForPostures")
 sqlContext = SQLContext(sc)
 
-# load data in pandas.dataframe form
-# data = pd.read_csv("/home/wth/Downloads/Postures.csv", skiprows=[1], nrows=1000)
-# data = data[["Class","User","X0","Y0","Z0","X1","Y1","Z1","X2","Y2","Z2","X3","Y3","Z3","X4","Y4","Z4"]]
-# data = data[(data.astype(str) != '?').all(axis=1)]
-# data[["X3","Y3","Z3","X4","Y4","Z4"]] = data[["X3","Y3","Z3","X4","Y4","Z4"]].astype(float)
-
-# Convert pandas.dataframe to pyspark.rdd.RDD
-# df = sqlContext.createDataFrame(data)
-# rdd = df.rdd.map(tuple)
+# Load and parse the data file into an RDD of LabeledPoint.
 data = MLUtils.loadLibSVMFile(sc, '/home/wth/Downloads/skin_nonskin.txt')
 
 # Split the data into training and test sets (30% held out for testing)
